@@ -1,0 +1,36 @@
+import 'package:dio/dio.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:alert/alert.dart';
+
+class HttpConfig {
+  static const baseUrl = 'http://121.37.166.151:3001';
+  static const apiAskQuestion = '/api/main/getResultList';
+  static const apiGetResult = '/api/main/getResultById';
+  static const timeout = 2000;
+}
+
+class NkHttpRequest {
+  static final BaseOptions options = BaseOptions(
+    baseUrl: HttpConfig.baseUrl,
+    connectTimeout: HttpConfig.timeout
+  );
+  static final Dio dio = Dio(options);
+  static Future<T> request<T>(
+    BuildContext context,
+    String url,
+    {String method = 'get', Map<String, dynamic> params}
+  ) async {
+    final options = Options(method: method);
+    try {
+      Response response = await dio.request<T>(
+        url,
+        queryParameters: params,
+        options: options
+      );
+      return response.data;
+    } on DioError catch (e) {
+      Alert(message: e.toString()).show();
+      return Future.error(e);
+    }
+  }
+}
