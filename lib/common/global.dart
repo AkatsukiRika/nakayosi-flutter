@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
 class GlobalColors {
-  static const colorPrimaryMaterial = Colors.green;
+  static const colorPrimary = Colors.green;
   static const colorIndexTextField = Color(0XFFFAFEE8);
   static const colorMainContentAppBar = Color(0xFFE3B3A2);
   static const colorAnswerTitle = Color(0xFF5DADF7);
-  static const colorAnswerTitleText = Color(0xFFFFFFFF);
+  static const colorWhite = Color(0xFFFFFFFF);
   static const colorGrey = Color(0xFF999999);
 }
 
@@ -25,4 +25,5 @@ class GlobalStrings {
   static const answerTitle = '问题解答';
   static const expandAnswer = '展开内容';
   static const shrinkAnswer = '收起内容';
+  static const drawerSettings = '设置';
 }

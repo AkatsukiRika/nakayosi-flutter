@@ -96,7 +96,7 @@ class _AnswerWidgetState extends State<AnswerWidget> {
               child: Text(
                 '${GlobalStrings.answerTitle} ${widget.index + 1}',
                 style: TextStyle(
-                  color: GlobalColors.colorAnswerTitleText,
+                  color: GlobalColors.colorWhite,
                   fontSize: 16
                 ),
               ),

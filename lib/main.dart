@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: GlobalStrings.appName,
       theme: ThemeData(
-        primarySwatch: GlobalColors.colorPrimaryMaterial,
+        primarySwatch: GlobalColors.colorPrimary,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: NkHomePage(title: GlobalStrings.appName)
