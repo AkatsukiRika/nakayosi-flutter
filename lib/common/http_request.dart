@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:alert/alert.dart';
 
 class HttpConfig {
-  static const baseUrl = 'http://121.37.166.151:3001';
+  static const baseUrl = 'http://172.26.99.171:3001';
   static const apiAskQuestion = '/api/main/getResultList';
   static const apiGetResult = '/api/main/getResultById';
   static const timeout = 2000;

@@ -136,14 +136,16 @@ class QuestionItem implements ListItem {
   Widget buildTitle(BuildContext context) => Row(
     mainAxisAlignment: MainAxisAlignment.start,
     children: [
-      Padding(
-        padding: EdgeInsets.fromLTRB(10, 12, 10, 5),
-        child: Text(
-          title,
-          maxLines: 1,
-          style: TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.normal,
+      Expanded(
+        child: Padding(
+          padding: EdgeInsets.fromLTRB(10, 12, 10, 5),
+          child: Text(
+            title,
+            maxLines: 1,
+            style: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.normal,
+            ),
           ),
         ),
       ),
