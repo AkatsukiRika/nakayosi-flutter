@@ -6,7 +6,9 @@ class HttpConfig {
   static const baseUrl = 'http://172.26.99.171:3001';
   static const apiAskQuestion = '/api/main/getResultList';
   static const apiGetResult = '/api/main/getResultById';
-  static const timeout = 2000;
+  static const apiGetAudioList = '/api/audio/getServerAudioNameList';
+  static const apiGetAudio = '/api/audio/getAudioStream';
+  static const timeout = 10000;
 }
 
 class NkHttpRequest {

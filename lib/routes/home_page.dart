@@ -59,7 +59,7 @@ class _NkHomePageState extends State<NkHomePage> {
                 height: 42,
                 child: ElevatedButton(
                   style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(GlobalColors.colorPrimary)
+                      backgroundColor: MaterialStateProperty.all(GlobalColors.materialColorPrimary)
                   ),
                   child: Text(GlobalStrings.askButtonText),
                   onPressed: () {

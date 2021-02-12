@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nakayosi_flutter/common/global.dart';
-import 'package:package_info/package_info.dart';
+import 'package:nakayosi_flutter/routes/nk_settings.dart';
 
 class HomeDrawer extends StatefulWidget {
   @override
@@ -9,19 +9,8 @@ class HomeDrawer extends StatefulWidget {
 }
 
 class _HomeDrawerState extends State<HomeDrawer> {
-  bool _isPackageInfoInitialized = false;
-  PackageInfo _packageInfo;
-
-  void _initPackageInfo() async {
-    _packageInfo = await PackageInfo.fromPlatform();
-    _isPackageInfoInitialized = true;
-  }
-
   @override
   Widget build(BuildContext context) {
-    if (!_isPackageInfoInitialized) {
-      _initPackageInfo();
-    }
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
@@ -29,7 +18,12 @@ class _HomeDrawerState extends State<HomeDrawer> {
           DrawerHeader(
             margin: EdgeInsets.zero,
             child: null,
-            decoration: BoxDecoration(color: GlobalColors.colorPrimary),
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('imgs/nkimg_drawerbg.jpg'),
+                fit: BoxFit.cover,
+              ),
+            ),
           ),
           ListTile(
             dense: true,
@@ -43,7 +37,9 @@ class _HomeDrawerState extends State<HomeDrawer> {
               ],
             ),
             onTap: () {
-              Navigator.pop(context);
+              Navigator.push(context, MaterialPageRoute(
+                builder: (context) => NkSettings()
+              ));
             },
           ),
         ],

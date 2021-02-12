@@ -184,47 +184,52 @@ class _MainContentState extends State<MainContent> {
       isFirstRequested = true;
     }
 
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text(GlobalStrings.titleMainContent),
-        backgroundColor: GlobalColors.colorMainContentAppBar,
+    return Theme(
+      data: ThemeData(
+        primarySwatch: GlobalColors.materialColorMainContent,
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Card(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(5.0),
-              ),
-              margin: EdgeInsets.fromLTRB(13, 7, 13, 7),
-              elevation: 3,
-              child: HeaderWidget(title: _title, subTitle: _subTitle),
-            ),
-            ListView.builder(
-              shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              itemBuilder: (context, index) {
-                return AnswerWidget(
-                  index: index,
-                  answer: _answerList[index],
-                );
-              },
-              itemCount: _answerList.length,
-            ),
-            Row(
-              children: [
-                Divider(
-                  color: Colors.transparent,
-                  height: 10,
-                ),
-              ],
-            )
-          ],
+      child: Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: Text(GlobalStrings.titleMainContent),
+          backgroundColor: GlobalColors.colorMainContentAppBar,
         ),
-      )
+        body: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5.0),
+                ),
+                margin: EdgeInsets.fromLTRB(13, 7, 13, 7),
+                elevation: 3,
+                child: HeaderWidget(title: _title, subTitle: _subTitle),
+              ),
+              ListView.builder(
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                itemBuilder: (context, index) {
+                  return AnswerWidget(
+                    index: index,
+                    answer: _answerList[index],
+                  );
+                },
+                itemCount: _answerList.length,
+              ),
+              Row(
+                children: [
+                  Divider(
+                    color: Colors.transparent,
+                    height: 10,
+                  ),
+                ],
+              )
+            ],
+          ),
+        )
+      ),
     );
   }
 
