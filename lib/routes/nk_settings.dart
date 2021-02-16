@@ -5,6 +5,7 @@ import 'package:alert/alert.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:nakayosi_flutter/common/global.dart';
 import 'package:nakayosi_flutter/common/http_request.dart';
 import 'package:package_info/package_info.dart';
@@ -17,11 +18,12 @@ class NkSettings extends StatefulWidget {
 
 class _NkSettingsState extends State<NkSettings> {
   bool isInfoInit = false;
-  bool isBgmOn = false;
   PackageInfo packageInfo;
   String versionName = GlobalStrings.defaultVersionName;
   String deviceId = GlobalStrings.defaultDeviceId;
   AudioPlayer audioPlayer;
+  // 调用原生方法时需使用的Channel
+  static const platform = const MethodChannel('nakayosi_flutter.rika.co.jp/settings');
 
   void _initPackageInfo() async {
     packageInfo = await PackageInfo.fromPlatform();
@@ -59,30 +61,67 @@ class _NkSettingsState extends State<NkSettings> {
       final int randomIndex = Random().nextInt(audioList.length);
       final audioUrl = HttpConfig.baseUrl + HttpConfig.apiGetAudio + "/${audioList[randomIndex]}";
       print('audioUrl: $audioUrl');
-      final playbackResult = await audioPlayer.play(audioUrl, isLocal: false);
+      int playbackResult;
+      if (Platform.isIOS) {
+        playbackResult = await audioPlayer.play(audioUrl, isLocal: false);
+      } else if (Platform.isAndroid) {
+        playbackResult = await startAudioPlaybackAndroid(audioUrl);
+      } else {
+        // 不支持其他平台，直接弹Toast并让播放状态弹回去
+        Alert(message: GlobalStrings.bgmUnsupported).show();
+        playbackResult = 0;
+      }
       if (playbackResult == 1) {
         setState(() {
-          isBgmOn = true;
+          GlobalStates.isBgmOn = true;
         });
       } else {
         setState(() {
-          isBgmOn = false;
+          GlobalStates.isBgmOn = false;
         });
       }
     } catch (e) {
       Alert(message: e.toString()).show();
       setState(() {
-        isBgmOn = false;
+        GlobalStates.isBgmOn = false;
       });
+    }
+  }
+  
+  Future<int> startAudioPlaybackAndroid(String url) async {
+    try {
+      await platform.invokeMethod('initPlayerAndroid');
+      await platform.invokeMethod('playOnlineAudioAndroid', {
+        'url': url
+      });
+      return 1; // 成功结果
+    } on PlatformException catch (e) {
+      Alert(message: e.message).show();
+      return 0; // 失败结果
     }
   }
 
   void stopAudioPlayback() async {
-    final result = await audioPlayer.stop();
+    int result;
+    if (Platform.isIOS) {
+      result = await audioPlayer.stop();
+    } else if (Platform.isAndroid) {
+      result = await stopAudioPlaybackAndroid();
+    }
     if (result == 1) {
       setState(() {
-        isBgmOn = false;
+        GlobalStates.isBgmOn = false;
       });
+    }
+  }
+
+  Future<int> stopAudioPlaybackAndroid() async {
+    try {
+      await platform.invokeMethod('stopOnlineAudioAndroid');
+      return 1;
+    } on PlatformException catch (e) {
+      Alert(message: e.message).show();
+      return 0;
     }
   }
 
@@ -153,7 +192,7 @@ class _NkSettingsState extends State<NkSettings> {
                 Transform.scale(
                   scale: 0.9,
                   child: CupertinoSwitch(
-                    value: isBgmOn,
+                    value: GlobalStates.isBgmOn,
                     onChanged: (bool currentValue) {
                       if (currentValue) {
                         startAudioPlayback();

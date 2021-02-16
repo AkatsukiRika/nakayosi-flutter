@@ -35,4 +35,9 @@ class GlobalStrings {
   static const defaultDeviceId = '设备ID正在读取中';
   static const unsupportedDeviceId = '此类型的设备暂时不受支持';
   static const backgroundMusic = '背景音乐';
+  static const bgmUnsupported = '此类型的设备暂不支持播放背景音乐';
+}
+
+class GlobalStates {
+  static bool isBgmOn = false;
 }
