@@ -36,6 +36,13 @@ class GlobalStrings {
   static const unsupportedDeviceId = '此类型的设备暂时不受支持';
   static const backgroundMusic = '背景音乐';
   static const bgmUnsupported = '此类型的设备暂不支持播放背景音乐';
+  // 问题添加面板
+  static const appBarAddNew = '添加问题';
+  static const nickNameLabel = '昵称';
+  static const titleLabel = '标题';
+  static const questionLabel = '问题内容';
+  static const questionSubmit = '匿名提问';
+  static const validationSuffix = '不能为空哦～';
 }
 
 class GlobalStates {

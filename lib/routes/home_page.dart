@@ -4,6 +4,7 @@ import 'package:alert/alert.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nakayosi_flutter/common/global.dart';
+import 'package:nakayosi_flutter/routes/add_new.dart';
 import 'package:nakayosi_flutter/routes/nk_main.dart';
 import 'package:nakayosi_flutter/widgets/home_drawer.dart';
 
@@ -28,6 +29,16 @@ class _NkHomePageState extends State<NkHomePage> {
       drawer: Container(
         width: 211,
         child: HomeDrawer(),
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: GlobalColors.materialColorPrimary,
+        child: Icon(Icons.add),
+        onPressed: () {
+          // 跳转添加问题面板
+          Navigator.push(context, MaterialPageRoute(
+            builder: (context) => AddNew()
+          ));
+        },
       ),
       body: Center(
         child: Column(
@@ -59,7 +70,7 @@ class _NkHomePageState extends State<NkHomePage> {
                 height: 42,
                 child: ElevatedButton(
                   style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(GlobalColors.materialColorPrimary)
+                    backgroundColor: MaterialStateProperty.all(GlobalColors.materialColorPrimary)
                   ),
                   child: Text(GlobalStrings.askButtonText),
                   onPressed: () {
