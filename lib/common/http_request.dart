@@ -8,6 +8,7 @@ class HttpConfig {
   static const apiGetResult = '/api/main/getResultById';
   static const apiGetAudioList = '/api/audio/getServerAudioNameList';
   static const apiGetAudio = '/api/audio/getAudioStream';
+  static const apiAddQuestion = '/api/question/addQuestion';
   static const timeout = 10000;
 }
 
@@ -20,13 +21,14 @@ class NkHttpRequest {
   static Future<T> request<T>(
     BuildContext context,
     String url,
-    {String method = 'get', Map<String, dynamic> params}
+    {String method = 'get', Map<String, dynamic> params, Map<String, dynamic> data}
   ) async {
     final options = Options(method: method);
     try {
       Response response = await dio.request<T>(
         url,
         queryParameters: params,
+        data: data,
         options: options
       );
       return response.data;

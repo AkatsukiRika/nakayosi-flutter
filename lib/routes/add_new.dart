@@ -1,6 +1,9 @@
+import 'package:alert/alert.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nakayosi_flutter/common/global.dart';
+import 'package:nakayosi_flutter/common/http_request.dart';
+import 'main_content.dart';
 
 class AddNew extends StatefulWidget {
   @override
@@ -8,7 +11,32 @@ class AddNew extends StatefulWidget {
 }
 
 // 表单Widget
+// ignore: must_be_immutable
 class FormInside extends StatelessWidget {
+  FormInside({Key key, @required this.formKey, this.context}) : super(key: key);
+  final GlobalKey<FormState> formKey;
+  final BuildContext context;
+  String title = "";
+  String question = "";
+
+  Future<String> doRequest(Map<String, String> params) async {
+    // 发送问题标题、问题内容给服务器
+    final url = HttpConfig.baseUrl + HttpConfig.apiAddQuestion;
+    print('add_new: request params = $params');
+    final result = await NkHttpRequest.request(context, url, data: params, method: 'post');
+    print('add_new: response = $result');
+    try {
+      final id = result['data']['id'];
+      final status = result['data']['status'];
+      print('add_new: id = $id, status = $status');
+      // 若成功创建，返回id，否则返回null，需判断
+      return id;
+    } catch (e) {
+      Alert(message: e.toString()).show();
+    }
+    return null;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -39,6 +67,9 @@ class FormInside extends StatelessWidget {
             }
             return null;
           },
+          onChanged: (value) {
+            title = value;
+          },
         ),
         TextFormField(
           decoration: InputDecoration(
@@ -54,6 +85,9 @@ class FormInside extends StatelessWidget {
             }
             return null;
           },
+          onChanged: (value) {
+            question = value;
+          },
         ),
         Padding(
           padding: const EdgeInsets.fromLTRB(0, 15, 0, 0),
@@ -64,7 +98,19 @@ class FormInside extends StatelessWidget {
               style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.all(GlobalColors.colorAnswerTitle),
               ),
-              onPressed: () {
+              onPressed: () async {
+                if (formKey.currentState.validate()) {
+                  String id = await doRequest({
+                    'title': title,
+                    'question': question,
+                  });
+                  if (id != null) {
+                    // 使用pushReplacement，进入问题页面后按下返回键不再返回到添加页面
+                    Navigator.pushReplacement(context, MaterialPageRoute(
+                      builder: (context) => MainContent(id: id)
+                    ));
+                  }
+                }
               },
               child: Text(GlobalStrings.questionSubmit),
             ),
@@ -94,7 +140,7 @@ class _AddNewState extends State<AddNew> {
           padding: const EdgeInsets.fromLTRB(5, 2, 5, 0),
           child: Form(
             key: _formKey,
-            child: FormInside(),
+            child: FormInside(formKey: _formKey, context: context),
           ),
         ),
       ),

@@ -253,7 +253,9 @@ class _MainContentState extends State<MainContent> {
       setState(() {
         _title = title;
         _subTitle = question;
-        _answerList = answerList;
+        if (answerList != null) {
+          _answerList = answerList;
+        }
       });
     } catch (e) {
       print('main_content: error = ${e.toString()}');
