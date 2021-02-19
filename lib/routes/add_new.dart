@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nakayosi_flutter/common/global.dart';
 import 'package:nakayosi_flutter/common/http_request.dart';
+import 'package:nakayosi_flutter/common/scroll_behavior_clear.dart';
 import 'main_content.dart';
 
 class AddNew extends StatefulWidget {
@@ -39,84 +40,87 @@ class FormInside extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        TextFormField(
-          decoration: InputDecoration(
-            labelText: GlobalStrings.nickNameLabel,
-            labelStyle: TextStyle(height: 0.75),
+    return ScrollConfiguration(
+      behavior: ScrollBehaviorClear(),
+      child: ListView(
+        children: <Widget>[
+          TextFormField(
+            decoration: InputDecoration(
+              labelText: GlobalStrings.nickNameLabel,
+              labelStyle: TextStyle(height: 0.75),
+            ),
+            validator: (value) {
+              if (value.isEmpty) {
+                return GlobalStrings.nickNameLabel + GlobalStrings.validationSuffix;
+              }
+              return null;
+            },
           ),
-          validator: (value) {
-            if (value.isEmpty) {
-              return GlobalStrings.nickNameLabel + GlobalStrings.validationSuffix;
-            }
-            return null;
-          },
-        ),
-        TextFormField(
-          decoration: InputDecoration(
-            labelText: GlobalStrings.titleLabel,
-            labelStyle: TextStyle(height: 0.75),
+          TextFormField(
+            decoration: InputDecoration(
+              labelText: GlobalStrings.titleLabel,
+              labelStyle: TextStyle(height: 0.75),
+            ),
+            keyboardType: TextInputType.multiline,
+            textInputAction: TextInputAction.newline,
+            maxLines: 3,
+            validator: (value) {
+              if (value.isEmpty) {
+                return GlobalStrings.titleLabel + GlobalStrings.validationSuffix;
+              }
+              return null;
+            },
+            onChanged: (value) {
+              title = value;
+            },
           ),
-          keyboardType: TextInputType.multiline,
-          textInputAction: TextInputAction.newline,
-          maxLines: 3,
-          validator: (value) {
-            if (value.isEmpty) {
-              return GlobalStrings.titleLabel + GlobalStrings.validationSuffix;
-            }
-            return null;
-          },
-          onChanged: (value) {
-            title = value;
-          },
-        ),
-        TextFormField(
-          decoration: InputDecoration(
-            labelText: GlobalStrings.questionLabel,
-            labelStyle: TextStyle(height: 0.75),
+          TextFormField(
+            decoration: InputDecoration(
+              labelText: GlobalStrings.questionLabel,
+              labelStyle: TextStyle(height: 0.75),
+            ),
+            keyboardType: TextInputType.multiline,
+            textInputAction: TextInputAction.newline,
+            maxLines: 9,
+            validator: (value) {
+              if (value.isEmpty) {
+                return GlobalStrings.questionLabel + GlobalStrings.validationSuffix;
+              }
+              return null;
+            },
+            onChanged: (value) {
+              question = value;
+            },
           ),
-          keyboardType: TextInputType.multiline,
-          textInputAction: TextInputAction.newline,
-          maxLines: 9,
-          validator: (value) {
-            if (value.isEmpty) {
-              return GlobalStrings.questionLabel + GlobalStrings.validationSuffix;
-            }
-            return null;
-          },
-          onChanged: (value) {
-            question = value;
-          },
-        ),
-        Padding(
-          padding: const EdgeInsets.fromLTRB(0, 15, 0, 0),
-          child: SizedBox(
-            width: double.infinity,
-            height: 42,
-            child: ElevatedButton(
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(GlobalColors.colorAnswerTitle),
-              ),
-              onPressed: () async {
-                if (formKey.currentState.validate()) {
-                  String id = await doRequest({
-                    'title': title,
-                    'question': question,
-                  });
-                  if (id != null) {
-                    // 使用pushReplacement，进入问题页面后按下返回键不再返回到添加页面
-                    Navigator.pushReplacement(context, MaterialPageRoute(
-                      builder: (context) => MainContent(id: id)
-                    ));
+          Padding(
+            padding: const EdgeInsets.fromLTRB(0, 15, 0, 0),
+            child: SizedBox(
+              width: double.infinity,
+              height: 42,
+              child: ElevatedButton(
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(GlobalColors.colorAnswerTitle),
+                ),
+                onPressed: () async {
+                  if (formKey.currentState.validate()) {
+                    String id = await doRequest({
+                      'title': title,
+                      'question': question,
+                    });
+                    if (id != null) {
+                      // 使用pushReplacement，进入问题页面后按下返回键不再返回到添加页面
+                      Navigator.pushReplacement(context, MaterialPageRoute(
+                        builder: (context) => MainContent(id: id)
+                      ));
+                    }
                   }
-                }
-              },
-              child: Text(GlobalStrings.questionSubmit),
+                },
+                child: Text(GlobalStrings.questionSubmit),
+              ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
