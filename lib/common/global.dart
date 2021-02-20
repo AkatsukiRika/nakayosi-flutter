@@ -22,12 +22,14 @@ class GlobalStrings {
   static const titleAskResult = '查询结果';
   static const titleMainContent = '问题内容';
   static const titleSettings = '设置';
+  static const titleBecomePro = '专家号申请';
   static const questionTitleDefault = '这里是问题的标题哦，还没有加载出来的话请稍等~';
   static const questionSubTitleDefault = '这里是问题的内容~';
   static const answerTitle = '问题解答';
   static const expandAnswer = '展开内容';
   static const shrinkAnswer = '收起内容';
   static const drawerSettings = '设置';
+  static const drawerBecomePro = '专家号申请';
   // 设置面板
   static const versionName = '版本号';
   static const defaultVersionName = '0.0.0';
@@ -43,6 +45,14 @@ class GlobalStrings {
   static const questionLabel = '问题内容';
   static const questionSubmit = '匿名提问';
   static const validationSuffix = '不能为空哦～';
+  // 专家号申请面板
+  static const realNameLabel = '真实姓名';
+  static const idNumberLabel = '身份证号';
+  static const idNumberHelper = '只能使用中国大陆的身份证号码';
+  static const phoneNumberLabel = '手机号码';
+  static const phoneNumberHelper = '只能使用中国大陆的手机号码';
+  static const emailLabel = '电子邮箱';
+  static const emailHelper = '审核结果将通过邮件发送';
 }
 
 class GlobalStates {

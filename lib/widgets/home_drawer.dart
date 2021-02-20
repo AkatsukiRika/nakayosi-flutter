@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nakayosi_flutter/common/global.dart';
+import 'package:nakayosi_flutter/routes/become_pro.dart';
 import 'package:nakayosi_flutter/routes/nk_settings.dart';
 
 class HomeDrawer extends StatefulWidget {
@@ -39,6 +40,23 @@ class _HomeDrawerState extends State<HomeDrawer> {
             onTap: () {
               Navigator.push(context, MaterialPageRoute(
                 builder: (context) => NkSettings()
+              ));
+            },
+          ),
+          ListTile(
+            dense: true,
+            title: Row(
+              children: [
+                Icon(Icons.person, size: 20),
+                Container(
+                  width: 15,
+                ),
+                Text(GlobalStrings.drawerBecomePro),
+              ],
+            ),
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(
+                builder: (context) => BecomePro()
               ));
             },
           ),
