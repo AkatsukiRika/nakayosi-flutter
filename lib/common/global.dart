@@ -8,6 +8,7 @@ class GlobalColors {
   static const colorAnswerTitle = Color(0xFF5DADF7);
   static const colorWhite = Color(0xFFFFFFFF);
   static const colorGrey = Color(0xFF999999);
+  static const materialColorWhite = Colors.white;
 }
 
 class GlobalNumbers {
@@ -53,8 +54,32 @@ class GlobalStrings {
   static const phoneNumberHelper = '只能使用中国大陆的手机号码';
   static const emailLabel = '电子邮箱';
   static const emailHelper = '审核结果将通过邮件发送';
+  static const goRichTextEdit = '下一步：填写详细信息';
+  static const realNameInvalid = '请填写真实汉字姓名';
+  static const idNumberInvalid = '请填写真实身份证号';
+  static const phoneNumberInvalid = '请填写真实手机号码';
+  static const emailAddressInvalid = '请填写真实邮箱地址';
+  // 富文本编辑面板
+  static const appBarRichText = '申请详情';
+  static const richTextHint = '请尽量详细填写个人从业资格、从业经历等专业相关信息';
+  static const richTextSubmit = '提交';
 }
 
 class GlobalStates {
   static bool isBgmOn = false;
+}
+
+class GlobalRegex {
+  static RegExp realName = RegExp(
+    r'^[\u4E00-\u9FA5]{2,10}(·[\u4E00-\u9FA5]{2,10}){0,2}$'
+  );
+  static RegExp idNumber = RegExp(
+    r'^(\d{15}|\d18|^\d{17}(\d|X|x))$'
+  );
+  static RegExp phoneNumber = RegExp(
+    r'^[1]([3-9])[0-9]{9}$'
+  );
+  static RegExp emailAddress = RegExp(
+    r'^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$'
+  );
 }

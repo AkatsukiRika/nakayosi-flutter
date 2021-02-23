@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nakayosi_flutter/common/global.dart';
+import 'package:nakayosi_flutter/routes/pro_details.dart';
 
 class BecomePro extends StatefulWidget {
   @override
@@ -24,6 +25,12 @@ class BecomeProForm extends StatelessWidget {
                 labelText: GlobalStrings.realNameLabel,
                 labelStyle: TextStyle(height: 0.75),
               ),
+              validator: (value) {
+                if (!GlobalRegex.realName.hasMatch(value)) {
+                  return GlobalStrings.realNameInvalid;
+                }
+                return null;
+              },
             ),
             TextFormField(
               decoration: InputDecoration(
@@ -32,6 +39,12 @@ class BecomeProForm extends StatelessWidget {
                 helperText: GlobalStrings.idNumberHelper,
               ),
               keyboardType: TextInputType.number,
+              validator: (value) {
+                if (!GlobalRegex.idNumber.hasMatch(value)) {
+                  return GlobalStrings.idNumberInvalid;
+                }
+                return null;
+              },
             ),
             TextFormField(
               decoration: InputDecoration(
@@ -40,6 +53,12 @@ class BecomeProForm extends StatelessWidget {
                 helperText: GlobalStrings.phoneNumberHelper,
               ),
               keyboardType: TextInputType.number,
+              validator: (value) {
+                if (!GlobalRegex.phoneNumber.hasMatch(value)) {
+                  return GlobalStrings.phoneNumberInvalid;
+                }
+                return null;
+              },
             ),
             TextFormField(
               decoration: InputDecoration(
@@ -48,6 +67,30 @@ class BecomeProForm extends StatelessWidget {
                 helperText: GlobalStrings.emailHelper,
               ),
               keyboardType: TextInputType.emailAddress,
+              validator: (value) {
+                if (!GlobalRegex.emailAddress.hasMatch(value)) {
+                  return GlobalStrings.emailAddressInvalid;
+                }
+                return null;
+              },
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0, 15, 0, 0),
+              child: SizedBox(
+                width: double.infinity,
+                height: 42,
+                child: ElevatedButton(
+                  child: Text(GlobalStrings.goRichTextEdit),
+                  onPressed: () async {
+                    // 只跳转，不上传信息
+                    if (formKey.currentState.validate()) {
+                      Navigator.push(context, MaterialPageRoute(
+                        builder: (context) => ProDetails()
+                      ));
+                    }
+                  },
+                ),
+              ),
             ),
           ],
         ),
