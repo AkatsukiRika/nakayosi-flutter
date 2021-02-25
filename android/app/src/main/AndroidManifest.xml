@@ -47,14 +47,5 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
-        <provider
-            android:authorities="${applicationId}.flutter_inappwebview.fileprovider"
-            android:name="com.pichillilorenzo.flutter_inappwebview.InAppWebViewFileProvider"
-            android:exported="false"
-            android:grantUriPermissions="true">
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/provider_paths" />
-        </provider>
     </application>
 </manifest>
