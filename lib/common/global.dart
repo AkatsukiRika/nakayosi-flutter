@@ -63,6 +63,12 @@ class GlobalStrings {
   static const appBarRichText = '申请详情';
   static const richTextHint = '请尽量详细填写个人从业资格、从业经历等专业相关信息';
   static const richTextSubmit = '提交';
+  // 专家号申请确认对话框
+  static const newProTitleSuccess = '申请提交成功';
+  static const newProContentSuccess = '我们将在7个工作日内发送申请结果到您的邮箱';
+  static const buttonGoHome = '回到主页';
+  static const newProTitleFailure = '申请提交失败';
+  static const newProContentFailure = '请确认网络状况正常后再试一次';
 }
 
 class GlobalStates {

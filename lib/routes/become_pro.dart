@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:nakayosi_flutter/common/global.dart';
 import 'package:nakayosi_flutter/routes/pro_details.dart';
+import 'package:nakayosi_flutter/models/pro_user.dart';
 
 class BecomePro extends StatefulWidget {
   @override
@@ -12,6 +13,7 @@ class BecomeProForm extends StatelessWidget {
   BecomeProForm({Key key, @required this.formKey, this.context}) : super(key: key);
   final GlobalKey<FormState> formKey;
   final BuildContext context;
+  final ProUser proUser = ProUser();
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +33,9 @@ class BecomeProForm extends StatelessWidget {
                 }
                 return null;
               },
+              onChanged: (value) {
+                proUser.realName = value;
+              },
             ),
             TextFormField(
               decoration: InputDecoration(
@@ -44,6 +49,9 @@ class BecomeProForm extends StatelessWidget {
                   return GlobalStrings.idNumberInvalid;
                 }
                 return null;
+              },
+              onChanged: (value) {
+                proUser.idNumber = value;
               },
             ),
             TextFormField(
@@ -59,6 +67,9 @@ class BecomeProForm extends StatelessWidget {
                 }
                 return null;
               },
+              onChanged: (value) {
+                proUser.phoneNumber = value;
+              },
             ),
             TextFormField(
               decoration: InputDecoration(
@@ -73,6 +84,9 @@ class BecomeProForm extends StatelessWidget {
                 }
                 return null;
               },
+              onChanged: (value) {
+                proUser.email = value;
+              },
             ),
             Padding(
               padding: const EdgeInsets.fromLTRB(0, 15, 0, 0),
@@ -85,7 +99,7 @@ class BecomeProForm extends StatelessWidget {
                     // 只跳转，不上传信息
                     if (formKey.currentState.validate()) {
                       Navigator.push(context, MaterialPageRoute(
-                        builder: (context) => ProDetails()
+                        builder: (context) => ProDetails(proUser: proUser),
                       ));
                     }
                   },

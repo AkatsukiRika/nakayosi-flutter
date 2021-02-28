@@ -9,6 +9,7 @@ class HttpConfig {
   static const apiGetAudioList = '/api/audio/getServerAudioNameList';
   static const apiGetAudio = '/api/audio/getAudioStream';
   static const apiAddQuestion = '/api/question/addQuestion';
+  static const apiAddProUser = '/api/user/addProUser';
   static const timeout = 10000;
 }
 
