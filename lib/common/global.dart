@@ -31,6 +31,8 @@ class GlobalStrings {
   static const shrinkAnswer = '收起内容';
   static const drawerSettings = '设置';
   static const drawerBecomePro = '专家号申请';
+  static const drawerProLogin = '专家号登录';
+  static const drawerProLogout = '专家号登出';
   // 设置面板
   static const versionName = '版本号';
   static const defaultVersionName = '0.0.0';
@@ -59,6 +61,11 @@ class GlobalStrings {
   static const idNumberInvalid = '请填写真实身份证号';
   static const phoneNumberInvalid = '请填写真实手机号码';
   static const emailAddressInvalid = '请填写真实邮箱地址';
+  // 专家号登录面板
+  static const proLoginEmailLabel = '邮箱地址';
+  static const proLoginPwdLabel = '密码';
+  static const loginBtnText = '登录';
+  static const loginEmptyAlert = '密码不能为空';
   // 富文本编辑面板
   static const appBarRichText = '申请详情';
   static const richTextHint = '请尽量详细填写个人从业资格、从业经历等专业相关信息';
@@ -69,10 +76,18 @@ class GlobalStrings {
   static const buttonGoHome = '回到主页';
   static const newProTitleFailure = '申请提交失败';
   static const newProContentFailure = '请确认网络状况正常后再试一次';
+  // 专家号登出对话框
+  static const confirmLogoutTitle = '确认登出';
+  static String confirmLogoutContent(String realName) {
+    return '确认登出姓名为「$realName」的专家账号？';
+  }
+  static const confirm = '确认';
+  static const cancel = '取消';
 }
 
 class GlobalStates {
   static bool isBgmOn = false;
+  static String realNameLoggedIn;
 }
 
 class GlobalRegex {

@@ -3,13 +3,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:alert/alert.dart';
 
 class HttpConfig {
-  static const baseUrl = 'http://172.26.99.171:3001';
+  // TODO: 展示前将baseUrl更换为云服务器上的地址
+  static const baseUrl = 'http://192.168.43.234:3001';
   static const apiAskQuestion = '/api/main/getResultList';
   static const apiGetResult = '/api/main/getResultById';
   static const apiGetAudioList = '/api/audio/getServerAudioNameList';
   static const apiGetAudio = '/api/audio/getAudioStream';
   static const apiAddQuestion = '/api/question/addQuestion';
   static const apiAddProUser = '/api/user/addProUser';
+  static const apiProUserLogin = '/api/user/userLogin';
+  static const apiGetProUserStatus = '/api/user/getUserLoginStatus';
+  static const apiProUserLogout = '/api/user/proUserLogout';
   static const timeout = 10000;
 }
 

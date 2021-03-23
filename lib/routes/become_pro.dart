@@ -21,6 +21,7 @@ class BecomeProForm extends StatelessWidget {
       key: formKey,
       child: Expanded(
         child: ListView(
+          physics: NeverScrollableScrollPhysics(),
           children: <Widget>[
             TextFormField(
               decoration: InputDecoration(
