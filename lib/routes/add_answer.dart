@@ -39,7 +39,6 @@ class _AddAnswerState extends State<AddAnswer> {
               }),
             ),
             onPressed: () {
-              print('问题ID: ${widget.id}, 回答内容: $answerContent');
               doRequest(widget.id, answerContent);
             },
           ),
@@ -75,8 +74,8 @@ class _AddAnswerState extends State<AddAnswer> {
     final result = await NkHttpRequest.request(context, url, data: params, method: 'post');
     try {
       if (result['data']['status'] == 'success') {
+        widget.mainContentState.addAnswer(answer);
         Navigator.pop(context);
-        widget.mainContentState.doRequest(widget.mainContentState.params);
       } else {
         Alert(message: GlobalStrings.addAnswerFail).toString();
         Navigator.pop(context);

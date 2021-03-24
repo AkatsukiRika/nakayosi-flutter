@@ -233,20 +233,23 @@ class MainContentState extends State<MainContent> {
                   ),
                 ],
               ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(13, 0, 13, 14),
-                child: SizedBox(
-                  width: double.infinity,
-                  height: 42,
-                  child: ElevatedButton(
-                    child: Text(GlobalStrings.addAnswer),
-                    onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(
-                        builder: (context) => AddAnswer(id: widget.id, mainContentState: widget.mainContentState),
-                      ));
-                    },
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(GlobalColors.colorAddAnswerBtn),
+              Offstage(
+                offstage: GlobalStates.realNameLoggedIn == null,
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(13, 0, 13, 14),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 42,
+                    child: ElevatedButton(
+                      child: Text(GlobalStrings.addAnswer),
+                      onPressed: () {
+                        Navigator.push(context, MaterialPageRoute(
+                          builder: (context) => AddAnswer(id: widget.id, mainContentState: widget.mainContentState),
+                        ));
+                      },
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(GlobalColors.colorAddAnswerBtn),
+                      ),
                     ),
                   ),
                 ),
@@ -286,5 +289,12 @@ class MainContentState extends State<MainContent> {
       print('main_content: error = ${e.toString()}');
       Alert(message: e.toString()).show();
     }
+  }
+
+  void addAnswer(String content) {
+    // 用于从AddAnswer回到详情页面时调用，在界面上添加一条回答
+    setState(() {
+      _answerList.add(content);
+    });
   }
 }
