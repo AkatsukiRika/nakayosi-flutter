@@ -14,6 +14,7 @@ class HttpConfig {
   static const apiProUserLogin = '/api/user/userLogin';
   static const apiGetProUserStatus = '/api/user/getUserLoginStatus';
   static const apiProUserLogout = '/api/user/proUserLogout';
+  static const apiAddAnswer = '/api/question/addAnswer';
   static const timeout = 10000;
 }
 

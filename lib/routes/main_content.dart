@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:nakayosi_flutter/common/global.dart';
 import 'package:nakayosi_flutter/common/http_request.dart';
+import 'package:nakayosi_flutter/routes/add_answer.dart';
 
 // 顶部显示标题和问题内容的Widget
 class HeaderWidget extends StatelessWidget {
@@ -155,16 +156,22 @@ class _AnswerWidgetState extends State<AnswerWidget> {
   }
 }
 
+// ignore: must_be_immutable
 class MainContent extends StatefulWidget {
   final String id;
+  // 需要传递给AddAnswer组件的MainContentState
+  MainContentState mainContentState;
 
   MainContent({Key key, this.id});
 
   @override
-  State<StatefulWidget> createState() => _MainContentState();
+  State<StatefulWidget> createState() {
+    mainContentState = MainContentState();
+    return mainContentState;
+  }
 }
 
-class _MainContentState extends State<MainContent> {
+class MainContentState extends State<MainContent> {
   // params包含1个参数：id(str)
   Map<String, String> params;
   // 是否已首次从服务器请求到数据
@@ -225,7 +232,25 @@ class _MainContentState extends State<MainContent> {
                     height: 10,
                   ),
                 ],
-              )
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(13, 0, 13, 14),
+                child: SizedBox(
+                  width: double.infinity,
+                  height: 42,
+                  child: ElevatedButton(
+                    child: Text(GlobalStrings.addAnswer),
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(
+                        builder: (context) => AddAnswer(id: widget.id, mainContentState: widget.mainContentState),
+                      ));
+                    },
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(GlobalColors.colorAddAnswerBtn),
+                    ),
+                  ),
+                ),
+              ),
             ],
           ),
         )

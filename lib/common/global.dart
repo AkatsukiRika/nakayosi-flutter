@@ -8,6 +8,7 @@ class GlobalColors {
   static const colorAnswerTitle = Color(0xFF5DADF7);
   static const colorWhite = Color(0xFFFFFFFF);
   static const colorGrey = Color(0xFF999999);
+  static const colorAddAnswerBtn = Color(0xFFF7BA81);
   static const materialColorWhite = Colors.white;
 }
 
@@ -83,6 +84,10 @@ class GlobalStrings {
   }
   static const confirm = '确认';
   static const cancel = '取消';
+  // 回答添加面板
+  static const addAnswer = '添加回答';
+  static const addAnswerHint = '请在此处输入回答内容，完成后按右上角「提交」按钮';
+  static const addAnswerFail = '添加回答失败';
 }
 
 class GlobalStates {
