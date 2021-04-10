@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:nakayosi_flutter/common/global.dart';
 import 'package:nakayosi_flutter/common/http_request.dart';
 import 'package:nakayosi_flutter/common/scroll_behavior_clear.dart';
+import 'package:nakayosi_flutter/models/explicit_main_content.dart';
 import 'main_content.dart';
 
 class AddNew extends StatefulWidget {
@@ -108,9 +109,20 @@ class FormInside extends StatelessWidget {
                       'question': question,
                     });
                     if (id != null) {
+                      /**
+                       * 避免跳转到mainContent页面后再次根据ID发起网络请求从而造成偶现获取不到数据的问题，
+                       * 因此这里直接将问题标题及内容显式传递给mainContent页面
+                       */
+                      MainContent mainContent = MainContent(
+                        explicitMainContent: ExplicitMainContent(
+                          title: title,
+                          subTitle: question,
+                          answerList: List<dynamic>()
+                        ),
+                      );
                       // 使用pushReplacement，进入问题页面后按下返回键不再返回到添加页面
                       Navigator.pushReplacement(context, MaterialPageRoute(
-                        builder: (context) => MainContent(id: id)
+                        builder: (context) => mainContent
                       ));
                     }
                   }

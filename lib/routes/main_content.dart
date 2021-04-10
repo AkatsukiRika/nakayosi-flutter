@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:nakayosi_flutter/common/global.dart';
 import 'package:nakayosi_flutter/common/http_request.dart';
+import 'package:nakayosi_flutter/models/explicit_main_content.dart';
 import 'package:nakayosi_flutter/routes/add_answer.dart';
 
 // 顶部显示标题和问题内容的Widget
@@ -161,12 +162,20 @@ class MainContent extends StatefulWidget {
   final String id;
   // 需要传递给AddAnswer组件的MainContentState
   MainContentState mainContentState;
+  // 显式传递的信息。若此信息存在则不会在main_content页面进行网络请求获取数据
+  ExplicitMainContent explicitMainContent;
 
-  MainContent({Key key, this.id});
+  MainContent({Key key, this.id, this.explicitMainContent});
 
   @override
   State<StatefulWidget> createState() {
     mainContentState = MainContentState();
+    if (explicitMainContent != null) {
+      mainContentState.isFirstRequested = true;
+      mainContentState._title = explicitMainContent.title;
+      mainContentState._subTitle = explicitMainContent.subTitle;
+      mainContentState._answerList = explicitMainContent.answerList;
+    }
     return mainContentState;
   }
 }
